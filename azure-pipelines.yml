@@ -20,3 +20,6 @@ steps:
     echo See https://aka.ms/yaml
     echo Test Data preparation 
   displayName: 'Run a multi-line script'
+- script: |
+        jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o TestResult.html
+  workingDirectory: ${System.defaultWorkingDirectory}
