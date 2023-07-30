@@ -22,4 +22,5 @@ steps:
   displayName: 'Run a multi-line script'
 - script: |
         jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o TestResult.html
-  workingDirectory: ${System.defaultWorkingDirectory}
+  workingDirectory: '$(System.DefaultWorkingDirectory)/jmeter'
+  displayName: 'Command Line Script'
