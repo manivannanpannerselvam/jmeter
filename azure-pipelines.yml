@@ -12,7 +12,8 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
+- task: AlexandreGattiker.jmeter-tasks.custom-jmeter-installer-task.JMeterInstaller@0
+  displayName: 'Install JMeter 5.4.2'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
