@@ -18,9 +18,10 @@ steps:
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
-    echo Test Data preparation 
+    echo Test Data preparation
+    echo '${System.DefaultWorkingDirectory}'
   displayName: 'Run a multi-line script'
 - script: |
         jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o TestResult.html
-  workingDirectory: '$(System.DefaultWorkingDirectory)/manivannanpanneersevalam.jmeter'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Command Line Script'
