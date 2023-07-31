@@ -25,3 +25,9 @@ steps:
         jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o TestResult.html
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Command Line Script'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/TestResult.html'
+    artifact: 'JMeterResults'
+    publishLocation: 'pipeline'
