@@ -22,7 +22,7 @@ steps:
     echo '${System.DefaultWorkingDirectory}'
   displayName: 'Run a multi-line script'
 - script: |
-        jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o TestResult.html
+        jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o $(System.DefaultWorkingDirectory)/TestResult.html
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Command Line Script'
 
