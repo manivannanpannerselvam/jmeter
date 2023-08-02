@@ -1,33 +1,35 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-- task: AlexandreGattiker.jmeter-tasks.custom-jmeter-installer-task.JMeterInstaller@0
-  displayName: 'Install JMeter 5.4.2'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-    echo Test Data preparation
-    echo '${System.DefaultWorkingDirectory}'
-  displayName: 'Run a multi-line script'
-- script: |
-        jmeter -n -t testfirst.jmx -l testJmeter.jtl -e -o $(System.DefaultWorkingDirectory)/TestResult.html
-  workingDirectory: '$(System.DefaultWorkingDirectory)'
-  displayName: 'Command Line Script'
-
-- task: CopyFiles@2
+- task: DownloadSecureFile@1
+  displayName: 'Download JMeter script and test data'
+  name: testFiles
   inputs:
-    sourceFolder: '$(System.DefaultWorkingDirectory)'
-    contents: 'TestResult.html'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    secureFile: 'testfirst.jmx'
+    retryCount: 3
+
+- task: UseJavaVersion@1
+  inputs:
+    versionSpec: '11'
+    addToPath: true
+
+- script: |
+    jmeter -n -t $(testFiles.secureFilePath) -l testJmeter.jtl -e -o TestResult.html
+  displayName: 'Run JMeter test'
+
+- task: PublishTestResults@2
+  displayName: 'Publish JMeter test results'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'testJmeter.jtl'
+    testRunTitle: 'JMeter Test Results'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish JMeter Test Report'
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/TestResult.html'
+    ArtifactName: 'JMeterTestReport'
