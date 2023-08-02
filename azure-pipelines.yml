@@ -12,11 +12,6 @@ steps:
     secureFile: 'testfirst.jmx'
     retryCount: 3
 
-- task: UseJavaVersion@1
-  inputs:
-    versionSpec: '11'
-    addToPath: true
-
 - script: |
     jmeter -n -t $(testFiles.secureFilePath) -l testJmeter.jtl -e -o TestResult.html
   displayName: 'Run JMeter test'
