@@ -26,8 +26,8 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Command Line Script'
 
-- task: PublishPipelineArtifact@1
+- task: CopyFiles@2
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/TestResult.html'
-    artifact: 'JMeterResults'
-    publishLocation: 'pipeline'
+    sourceFolder: '$(System.DefaultWorkingDirectory)'
+    contents: 'TestResult.html'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
