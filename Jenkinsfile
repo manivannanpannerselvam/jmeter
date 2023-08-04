@@ -14,7 +14,7 @@
                         def CODE_CHANGES = (gitStatus != "nothing to commit, working tree clean")
 
 
-                        if (BRANCH_NAME == 'master' && CODE_CHANGES) {
+                        if (BRANCH_NAME == 'dev' && CODE_CHANGES) {
 
                             echo "Master branch is updated"
                         } else {
