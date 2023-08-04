@@ -13,9 +13,15 @@ pipeline {
 
                 def CODE_CHANGES = (gitStatus != "nothing to commit, working tree clean")
 
-            when {
-                    expression {
-                        BRANCH_NAME == 'master' && CODE_CHANGES
+
+                        if(BRANCH_NAME == 'master' && CODE_CHANGES) {
+
+                            echo "Master branch is updated"
+                        }
+                        else {
+                            
+                            echo "Master branch is not updated"
+                        }
             }
             }
 
