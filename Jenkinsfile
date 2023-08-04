@@ -2,6 +2,12 @@
 
         agent any
 
+        parameters {
+            choice(name: 'VERSION', choices: ['1.1.0','1.2.0','1.3.0'], description: '')
+            booleanParam(name: 'executeTests',defaultValue: true, description: '')
+
+            }
+
         stages {
 
             stage("build") {
@@ -14,7 +20,7 @@
                         def CODE_CHANGES = (gitStatus != "nothing to commit, working tree clean")
 
 
-                        if (BRANCH_NAME == 'dev' && CODE_CHANGES) {
+                        if (BRANCH_NAME == 'master' && CODE_CHANGES) {
 
                             echo "Master branch is updated"
                         } else {
@@ -22,14 +28,19 @@
                             echo "Master branch is not updated"
                         }
                     }
-            echo "building the application...new reader"
+            echo "building the application..."
                 }
 
-                
+
             }
 
 
         stage("test") {
+                when {
+                    expression {
+                        params.executeTests
+            }
+            }
 
             steps {
 
@@ -43,6 +54,7 @@
             steps {
 
                 echo "Build to Deploy the application"
+                echo "Deploying the version ${params.VERSION}"
             }
         }
     }
