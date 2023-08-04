@@ -22,7 +22,7 @@
                             echo "Master branch is not updated"
                         }
                     }
-            echo "building the application...new"
+            echo "building the application...new reader"
                 }
 
                 
