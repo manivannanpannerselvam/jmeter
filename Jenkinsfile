@@ -1,3 +1,4 @@
+
     pipeline {
 
         agent any
@@ -27,7 +28,7 @@
                     echo "Build to Deploy the application"
                 }
             }
-
+        }
             post {
                 always {
 
@@ -37,5 +38,4 @@
                     echo "Always fail"
                 }
             }
-        }
 }
