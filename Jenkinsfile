@@ -28,6 +28,16 @@ pipeline {
                        }
                     }
           }
+         post {
+            always {
+
+		echo "Always pass"
+             }
+             failure {
+                 echo "Always fail"
+               }
+        }
+}
 
 
 }
