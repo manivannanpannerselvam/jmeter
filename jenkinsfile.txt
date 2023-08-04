@@ -11,6 +11,7 @@ pipeline {
                    Echo 'building the application...'
                  }
            }
+
            	
            stage("test") {
                  
