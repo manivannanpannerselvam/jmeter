@@ -1,45 +1,41 @@
-pipeline {
+    pipeline {
 
-    agent any 
+        agent any
 
-    stages {
+        stages {
 
-          stage("build") {
+            stage("build") {
 
                 steps {
 
-                   echo "building the application..."
-                 }
-           }
-           stage("test") {
-                 
-                  steps {
-                    
-                       echo "Build to Test the application"
+                    echo "building the application..."
+                }
+            }
+            stage("test") {
 
-                       }
-                    }
+                steps {
 
-             stage("deploy") {
-                  
-                   steps {
-             
-                        echo "Build to Deploy the application"
-                       }
-                    }
-          }
-         post {
-            always {
+                    echo "Build to Test the application"
 
-		echo "Always pass"
-             }
-             failure {
-                 echo "Always fail"
-               }
+                }
+            }
+
+            stage("deploy") {
+
+                steps {
+
+                    echo "Build to Deploy the application"
+                }
+            }
+
+            post {
+                always {
+
+                    echo "Always pass"
+                }
+                failure {
+                    echo "Always fail"
+                }
+            }
         }
 }
-
-
-}
-
-                 
