@@ -1,4 +1,5 @@
- pipeline {
+ def gv
+    pipeline {
 
         agent any
 
@@ -9,10 +10,14 @@
             }
 
         stages {
-
+            stage("init") {
+                steps {
+                    script {
+                        gv = load "load.groovy"
+            }
+            }
+            }
             stage("build") {
-
-
                 steps {
                     script {
                         def gitStatus = sh(script:'git status', returnStdout:true).trim()
@@ -22,7 +27,7 @@
 
                         if (BRANCH_NAME == 'master' && CODE_CHANGES) {
 
-                            echo "Master branch is updated"
+                            gv.buildApp()
                         } else {
 
                             echo "Master branch is not updated"
@@ -43,7 +48,9 @@
             }
 
             steps {
-
+                    script {
+                        gv.testApp()
+            }
                 echo "Build to Test the application"
 
             }
@@ -53,8 +60,9 @@
 
             steps {
 
-                echo "Build to Deploy the application"
-                echo "Deploying the version ${params.VERSION}"
+               script {
+                   gv.deployApp()
+            }
             }
         }
     }
